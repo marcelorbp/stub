@@ -1,0 +1,21 @@
+# Eclipse project files
+.classpath
+.project
+.settings/
+
+# VS Code project files (optional, if anyone uses it)
+.vscode/
+
+# IntelliJ IDEA project files (optional, if anyone uses it)
+.idea/
+*.iml
+
+# Maven build output
+target/
+
+# Logs
+*.log
+
+# OS junk
+.DS_Store
+Thumbs.db
