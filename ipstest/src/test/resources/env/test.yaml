@@ -1,0 +1,9 @@
+environment:
+  name: staging
+  appUrl: 'https://google.com'
+  apiUrl: 'https://api.staging.example.com'
+  dbConnectionString: <connection string>
+
+browser:
+  type: firefox
+  executionLocation: grid

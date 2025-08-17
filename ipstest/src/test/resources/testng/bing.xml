@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Google search test suite" parallel="methods"
+	thread-count="5">
+
+	<test name="AuthenticationTests">
+		<classes>
+			<class
+				name="ie.pensionsauthority.ips.testcases.BingSearchTest" />
+		</classes>
+	</test>
+
+</suite>

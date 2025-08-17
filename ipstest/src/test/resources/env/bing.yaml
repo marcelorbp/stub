@@ -1,0 +1,9 @@
+environment:
+  name: staging
+  appUrl: 'https://bing.com'
+  apiUrl: 'https://api.staging.example.com'
+  dbConnectionString: <connection string>
+
+browser:
+  type: firefox
+  executionLocation: grid
