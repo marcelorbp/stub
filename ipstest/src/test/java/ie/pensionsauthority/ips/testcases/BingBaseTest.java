@@ -40,7 +40,8 @@ public class BingBaseTest {
 		
 		app.set(abc);
 		app.get().initialize();
-		Thread.sleep(2000);
+		app.get().getDriver().manage().window().maximize();
+		Thread.sleep(10000);
 
 	//	OpenTestTarget(runConfig);
 
