@@ -1,0 +1,268 @@
+	/**
+	 * Selects an item in a drop down list
+	 */
+	@Override
+	public void selectDropDownItem(String value) {
+		logger.debug("Selecting drop down item text " + value + " on element with locator - " + locator.toString());
+
+		wait.until(new Function<WebDriver, Boolean>() {
+			public Boolean apply(WebDriver driver) {
+				try {
+					WebElement element = driver.findElement(locator);
+					Select dropdown = new Select(element);
+					dropdown.selectByVisibleText(value);
+					return true;
+				} catch (Exception e) {
+					logger.debug(e.getMessage());
+					return false;
+				}
+			}
+		});
+
+	}
+	
+	/**
+	 * This method returns dropdown options count
+	 */
+	@Override
+	public int getDrodownOptionsCount() {
+		logger.debug("Getting dropdown item count on element with locator - " + locator.toString());
+
+		int optionsCount = wait.until(new Function<WebDriver, Integer>() {
+			public Integer apply(WebDriver driver) {
+				try {
+					WebElement element = driver.findElement(locator);
+					Select dropdown = new Select(element);
+					return dropdown.getOptions().size();
+				} catch (Exception e) {
+					logger.debug(e.getMessage());
+					return null;
+				}
+			}
+		});
+		return optionsCount;
+
+	}
+
+	/**
+	 * Selects an item in a drop down list using index
+	 */
+	@Override
+	public void selectDropDownItem(int value) {
+		logger.debug("Selecting drop down item index " + value + " on element with locator - " + locator.toString());
+
+		wait.until(new Function<WebDriver, Boolean>() {
+			public Boolean apply(WebDriver driver) {
+				try {
+					WebElement element = driver.findElement(locator);
+					Select dropdown = new Select(element);
+					dropdown.selectByIndex(value);
+					return true;
+				} catch (Exception e) {
+					logger.debug(e.getMessage());
+					return false;
+				}
+			}
+		});
+
+	}
+
+	/**
+	 * Selects an item in a drop down list using index where list is defined with
+	 * UL(ul tags) and List Items(li tags)
+	 */
+	@Override
+	public void selectDropDownItemByIndex(int value) {
+		logger.debug("Selecting drop down item text " + value + " on element with locator - " + locator.toString());
+
+		wait.until(new Function<WebDriver, Boolean>() {
+			public Boolean apply(WebDriver driver) {
+				try {
+					List<WebElement> elementList = driver.findElements(locator);
+					for (int i = 0; i < elementList.size(); i++) {
+						if (i == value) {
+							elementList.get(i).click();
+							break;
+						}
+					}
+					return true;
+				} catch (Exception e) {
+					logger.debug(e.getMessage());
+					return false;
+				}
+			}
+		});
+
+	}
+
+	/**
+	 * Selects an item in a drop down list using index
+	 */
+	@Override
+	public String getSelectedValueOfDropDown() {
+		logger.debug("Getting selected value for element with locator - " + locator.toString());
+
+		String text = wait.until(new Function<WebDriver, String>() {
+			public String apply(WebDriver driver) {
+				try {
+					WebElement element = driver.findElement(locator);
+					Select dropdown = new Select(element);
+					return dropdown.getFirstSelectedOption().getText();
+				} catch (Exception e) {
+					logger.debug(e.getMessage());
+					return null;
+				}
+			}
+		});
+		return text;
+	}
+
+	/**
+	 * Selects an item in a drop down list with search box
+	 */
+	@Override
+	public void selectSearchDropDownItem(String value) {
+		logger.debug(
+				"Selecting Searching drop down item text " + value + " on element with locator " + locator.toString());
+
+		wait.until(new Function<WebDriver, Boolean>() {
+			public Boolean apply(WebDriver driver) {
+				try {
+					WebElement element = driver.findElement(By.linkText(value));
+					element.click();
+					return true;
+				} catch (Exception e) {
+					return false;
+				}
+			}
+		});
+	}
+
+	/**
+	 * Selects an item in a drop down list by visible text
+	 */
+	@Override
+	public void selectDropDownItemByText(String value) {
+		logger.debug(
+				"Selecting Searching drop down item text " + value + " on element with locator " + locator.toString());
+
+		wait.until(new Function<WebDriver, Boolean>() {
+			public Boolean apply(WebDriver driver) {
+				try {
+					List<WebElement> dropDownList = driver.findElements(locator);
+					if (dropDownList.size() <= 0)
+						return false;
+					for (WebElement listItem : dropDownList) {
+						// logger.debug(listItem.getAttribute("innerHTML"));
+						
+						if(listItem.getText().equalsIgnoreCase(value.trim())||listItem.getAttribute("innerHTML").trim().equalsIgnoreCase(value.trim())) {
+							safeJavaScriptClick(listItem);
+							logger.debug(value + " :selected from the drop down value");
+							break;
+						}
+					}
+					return true;
+				} catch (Exception e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+		});
+	}
+	/**
+	 * Selects an item in a drop down list by visible text
+	 */
+	@Override
+	public void selectDropDownItemTextWithMouseActions(String value) {
+		logger.debug(
+				"Selecting Searching drop down item text " + value + " on element with locator " + locator.toString());
+
+		wait.until(new Function<WebDriver, Boolean>() {
+			public Boolean apply(WebDriver driver) {
+				try {
+					List<WebElement> dropDownList = driver.findElements(locator);
+					if (dropDownList.size() <= 0)
+						return false;
+					for (WebElement listItem : dropDownList) {
+
+						 logger.debug(listItem.getAttribute("innerHTML"));
+						 logger.debug(listItem.getAttribute("innerText"));
+						 logger.debug(listItem.getText());
+						 logger.debug(value);
+
+						if(listItem.getText().equalsIgnoreCase(value.trim())||listItem.getAttribute("innerHTML").trim().equalsIgnoreCase(value.trim())||listItem.getAttribute("innerText").trim().equalsIgnoreCase(value.trim())) {
+							clickWithMouseOver(listItem);
+							logger.debug(value + " :selected from the drop down value");
+							break;
+						}
+					}
+					return true;
+				} catch (Exception e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+		});
+	}
+	/**
+	 * Selects an item in a drop down list with Visible text value
+	 */
+	@Override
+	public void selectDropDownItemByVisibleText(String value) {
+		logger.debug(
+				"Selecting Searching drop down item text " + value + " on element with locator " + locator.toString());
+
+		wait.until(new Function<WebDriver, Boolean>() {
+			public Boolean apply(WebDriver driver) {
+				try {
+					List<WebElement> dropDownList = driver.findElements(locator);
+					for (WebElement listItem : dropDownList) {
+						 logger.debug(listItem.getText());
+						if (listItem.getText().trim().equalsIgnoreCase(value.trim())) {
+							safeJavaScriptClick(listItem);
+							logger.debug(value + " :selected from the drop down value");
+							break;
+						}
+					}
+					return true;
+				} catch (Exception e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+		});
+	}
+
+	/**
+	 * Checks that an items exists in a drop down list
+	 */
+	@Override
+	public void checkItemInDropDown(String item) {
+		logger.debug(String.format("Checking item %s exists in element %s", item, locator.toString()));
+
+		wait.until(new Function<WebDriver, Boolean>() {
+			public Boolean apply(WebDriver driver) {
+				try {
+					// build a list of option text values
+					WebElement element = driver.findElement(locator);
+					Select dropdown = new Select(element);
+					ArrayList<WebElement> items = (ArrayList<WebElement>) dropdown.getOptions();
+					ArrayList<String> itemtext = new ArrayList<String>();
+					for (WebElement item : items) {
+						itemtext.add(item.getText().toUpperCase());
+					}
+					// check if item is in the list
+					for (String text : itemtext) {
+						logger.debug("current value" + text + itemtext);
+						if (text.equalsIgnoreCase(item)) {
+							return true;
+						}
+					}
+					return false;
+				} catch (Exception e) {
+					logger.debug(e.getMessage());
+					return false;
+				}
+			}
+		});
+	}
